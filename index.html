@@ -3,119 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>נר למאור תשפ״ו - [Bais Medrash of Albert]</title>
+    <title>נר למאור תשפ״ו</title>
     <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        background-color: #001f3f;
-        overflow: hidden;
-    }
-    body {
-        font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
-        color: #ffd700;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-    .container {
-        width: 98vw;
-        max-width: 98vw;
-        max-height: 98vh;
-        overflow: hidden;
-        transform-origin: top center;
-        transform: scale(0.85); /* Default smaller scale - fits most 1080p screens */
-    }
-    h1 {
-        font-size: 48px;
-        color: #ffd700;
-        margin-bottom: 30px;
-    }
-    h2 {
-        font-size: 36px;
-        color: #ffffff;
-        background-color: #005588;
-        padding: 10px;
-        border-radius: 10px;
-        margin: 40px auto;
-        max-width: 800px;
-    }
-    table {
-        width: 90%;
-        max-width: 900px;
-        margin: 20px auto;
-        border-collapse: collapse;
-        direction: rtl;
-    }
-    th, td {
-        padding: 12px;
-        border: 2px solid #ffd700;
-        font-size: 26px;
-    }
-    th {
-        background-color: #005588;
-        color: #ffd700;
-    }
-    td.parsha {
-        background-color: #003366;
-        text-align: right;
-    }
-    td.donor {
-        background-color: #002244;
-        color: #ffffff;
-        font-style: italic;
-    }
-    footer {
-        margin-top: 40px;
-        font-size: 22px;
-        color: #aaaaaa;
-    }
-    /* Auto-shrink more on smaller/shorter screens */
-    @media (max-height: 1080px) {
-        .container { transform: scale(0.8); }
-        h1 { font-size: 44px; }
-        h2 { font-size: 32px; }
-        th, td { font-size: 24px; }
-    }
-    @media (max-height: 900px) {
-        .container { transform: scale(0.7); }
-        h1 { font-size: 40px; }
-        h2 { font-size: 28px; }
-        th, td { font-size: 20px; }
-    }
-        .container { transform: scale(0.7); }
-        h1 { font-size: 34px !important; }
-        h2 { font-size: 24px !important; }
-        th, td { font-size: 18px !important; padding: 6px !important; }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #001f3f;
+            overflow: hidden;
+            font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
+            color: #ffd700;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
         }
         h1 {
-            font-size: 48px;
-            color: #ffd700;
-            margin-bottom: 30px;
+            font-size: 50px;
+            margin: 10px 0;
+        }
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 columns on wide screens */
+            gap: 20px;
+            padding: 0 20px;
+            max-height: 80vh;
+            overflow: hidden;
+        }
+        .book-column {
+            background-color: #002244;
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 15px;
+            overflow-y: auto;
         }
         h2 {
-            font-size: 36px;
-            color: #ffffff;
+            font-size: 32px;
             background-color: #005588;
+            color: #ffd700;
             padding: 10px;
-            border-radius: 10px;
-            margin: 40px auto;
-            max-width: 800px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 0 0 15px 0;
         }
         table {
-            width: 90%;
-            max-width: 900px;
-            margin: 20px auto;
+            width: 100%;
             border-collapse: collapse;
-            direction: rtl;
+            font-size: 22px;
         }
         th, td {
-            padding: 12px;
-            border: 2px solid #ffd700;
-            font-size: 26px;
+            padding: 8px;
+            border: 1px solid #ffd700;
         }
         th {
             background-color: #005588;
@@ -129,30 +67,43 @@
             background-color: #002244;
             color: #ffffff;
             font-style: italic;
+            text-align: right;
         }
         footer {
-            margin-top: 40px;
-            font-size: 22px;
+            text-align: center;
+            padding: 15px;
+            font-size: 20px;
             color: #aaaaaa;
         }
-        /* Media query for very tall/narrow screens (e.g., portrait mode) */
-        @media (max-height: 800px) or (max-width: 1200px) {
-            .container { transform: scale(0.8); }
-            h1 { font-size: 40px; }
-            h2 { font-size: 30px; }
-            th, td { font-size: 20px; padding: 8px; }
+        /* Responsive adjustments */
+        @media (max-width: 1600px) {
+            .books-grid { grid-template-columns: repeat(3, 1fr); }
+            h1 { font-size: 42px; }
+            h2 { font-size: 28px; }
+            table { font-size: 20px; }
+        }
+        @media (max-width: 1200px) {
+            .books-grid { grid-template-columns: repeat(2, 1fr); }
+            table { font-size: 18px; }
+        }
+        @media (max-width: 800px) {
+            .books-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="header">
         <h1>נר למאור תשפ״ו</h1>
-        <h1>מי שברך אבותינו...ומי שנותן נר למאור</h1>
+        <h1>לע״נ / לכבוד / בזכות</h1>
+    </div>
 
-    <h2>ספר בראשית</h2>
-    <table>
-        <tr><th>פרשה</th><th>נתרם ע״י</th></tr>
-        <tr><td class="parsha">בראשית</td><td class="donor">Dovid Gottlieb</td></tr>
+    <div class="books-grid">
+        <!-- ספר בראשית -->
+        <div class="book-column">
+            <h2>ספר בראשית</h2>
+            <table>
+                <tr><th>פרשה</th><th>נתרם ע״י</th></tr>
+               <tr><td class="parsha">בראשית</td><td class="donor">Dovid Gottlieb</td></tr>
         <tr><td class="parsha">נח</td><td class="donor">Azriel Frommer</td></tr>
         <tr><td class="parsha">לך לך</td><td class="donor">Moshe Gottlieb</td></tr>
         <tr><td class="parsha">וירא</td><td class="donor">Heshy Kahn</td></tr>
@@ -164,12 +115,16 @@
         <tr><td class="parsha">מקץ</td><td class="donor">Yair Stern</td></tr>
         <tr><td class="parsha">ויגש</td><td class="donor">Yoel Schuster</td></tr>
         <tr><td class="parsha">ויחי</td><td class="donor">Binyomin Fishman</td></tr>
-    </table>
 
-    <h2>ספר שמות</h2>
-    <table>
-        <tr><th>פרשה</th><th>נתרם ע״י</th></tr>
-        <tr><td class="parsha">שמות</td><td class="donor">Yubi Richt</td></tr>
+            </table>
+        </div>
+
+        <!-- ספר שמות -->
+        <div class="book-column">
+            <h2>ספר שמות</h2>
+            <table>
+                <tr><th>פרשה</th><th>נתרם ע״י</th></tr>
+                <tr><td class="parsha">שמות</td><td class="donor">Yubi Richt</td></tr>
         <tr><td class="parsha">וארא</td><td class="donor">Ari Hollander</td></tr>
         <tr><td class="parsha">בא</td><td class="donor">Dovid Shapiro</td></tr>
         <tr><td class="parsha">בשלח</td><td class="donor">Dovid Joseph</td></tr>
@@ -179,53 +134,66 @@
         <tr><td class="parsha">תצוה</td><td class="donor">Yitzi Grunfeld</td></tr>
         <tr><td class="parsha">כי תשא</td><td class="donor">Seidenfeld Family</td></tr>
         <tr><td class="parsha">ויקהל־פקודי</td><td class="donor">MOshe Eisenberg</td></tr>
-    </table>
 
-    <h2>ספר ויקרא</h2>
-    <table>
-        <tr><th>פרשה</th><th>נתרם ע״י</th></tr>
-        <tr><td class="parsha">ויקרא</td><td class="donor">Shimmy Szimonowitz</td></tr>
-        <tr><td class="parsha">צו</td><td class="donor">Tzvi Hertz</td></tr>
-        <tr><td class="parsha">שמיני</td><td class="donor">Gastwirth Family</td></tr>
-        <tr><td class="parsha">תזריע־מצורע</td><td class="donor">Chaim Klugman</td></tr>
-        <tr><td class="parsha">אחרי מות־קדושים</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">אמור</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">בהר־בחוקותי</td><td class="donor">שם התורם</td></tr>
-    </table>
+            </table>
+        </div>
 
-    <h2>ספר במדבר</h2>
-    <table>
-        <tr><th>פרשה</th><th>נתרם ע״י</th></tr>
-        <tr><td class="parsha">במדבר</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">נשא</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">בהעלותך</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">שלח</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">קרח</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">חוקת</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">בלק</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">פינחס</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">מטות־מסעי</td><td class="donor">שם התורם</td></tr>
-    </table>
+        <!-- ספר ויקרא -->
+        <div class="book-column">
+            <h2>ספר ויקרא</h2>
+            <table>
+                <tr><th>פרשה</th><th>נתרם ע״י</th></tr>
+                <tr><td class="parsha">ויקרא</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">צו</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">שמיני</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">תזריע־מצורע</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">אחרי מות־קדושים</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">אמור</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">בהר־בחוקותי</td><td class="donor">שם התורם</td></tr>
+            </table>
+        </div>
 
-    <h2>ספר דברים</h2>
-    <table>
-        <tr><th>פרשה</th><th>נתרם ע״י</th></tr>
-        <tr><td class="parsha">דברים</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">ואתחנן</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">עקב</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">ראה</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">שופטים</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">כי תצא</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">כי תבוא</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">נצבים</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">וילך</td><td class="donor">שם התורם</td></tr>
-        <tr><td class="parsha">האזינו</td><td class="donor">שם התורם</td></tr>
-        <!-- וזאת הברכה נקראת בשמחת תורה, אפשר להוסיף אם רוצים -->
-    </table>
+        <!-- ספר במדבר -->
+        <div class="book-column">
+            <h2>ספר במדבר</h2>
+            <table>
+                <tr><th>פרשה</th><th>נתרם ע״י</th></tr>
+                <tr><td class="parsha">במדבר</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">נשא</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">בהעלותך</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">שלח</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">קרח</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">חוקת</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">בלק</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">פינחס</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">מטות־מסעי</td><td class="donor">שם התורם</td></tr>
+            </table>
+        </div>
+
+        <!-- ספר דברים -->
+        <div class="book-column">
+            <h2>ספר דברים</h2>
+            <table>
+                <tr><th>פרשה</th><th>נתרם ע״י</th></tr>
+                <tr><td class="parsha">דברים</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">ואתחנן</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">עקב</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">ראה</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">שופטים</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">כי תצא</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">כי תבוא</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">נצבים</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">וילך</td><td class="donor">שם התורם</td></tr>
+                <tr><td class="parsha">האזינו</td><td class="donor">שם התורם</td></tr>
+            </table>
+        </div>
+    </div>
 
     <footer>לפרטים על חסות נר למאור – פנו לגבאי</footer>
 </body>
 </html>
+
+
 
 
 
