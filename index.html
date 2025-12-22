@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>נר למאור תשפ״ו - [Bais Medrash of Albert]</title>
     <style>
-        html, body {
+      html, body {
         height: 100%;
         margin: 0;
         padding: 0;
         background-color: #001f3f;
+        overflow: hidden;
     }
     body {
         font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
@@ -21,26 +22,70 @@
         box-sizing: border-box;
     }
     .container {
-        width: 95vw;
-        max-width: 95vw;
-        max-height: 95vh;
+        width: 98vw;
+        max-width: 98vw;
+        max-height: 98vh;
         overflow: hidden;
         transform-origin: top center;
-        transform: scale(1);
+        transform: scale(0.85); /* Default smaller scale - fits most 1080p screens */
     }
+    h1 {
+        font-size: 48px;
+        color: #ffd700;
+        margin-bottom: 30px;
+    }
+    h2 {
+        font-size: 36px;
+        color: #ffffff;
+        background-color: #005588;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 40px auto;
+        max-width: 800px;
+    }
+    table {
+        width: 90%;
+        max-width: 900px;
+        margin: 20px auto;
+        border-collapse: collapse;
+        direction: rtl;
+    }
+    th, td {
+        padding: 12px;
+        border: 2px solid #ffd700;
+        font-size: 26px;
+    }
+    th {
+        background-color: #005588;
+        color: #ffd700;
+    }
+    td.parsha {
+        background-color: #003366;
+        text-align: right;
+    }
+    td.donor {
+        background-color: #002244;
+        color: #ffffff;
+        font-style: italic;
+    }
+    footer {
+        margin-top: 40px;
+        font-size: 22px;
+        color: #aaaaaa;
+    }
+    /* Auto-shrink more on smaller/shorter screens */
     @media (max-height: 1080px) {
-        .container { transform: scale(0.9); }
-        h1 { font-size: 42px !important; }
-        h2 { font-size: 32px !important; }
-        th, td { font-size: 24px !important; padding: 10px !important; }
+        .container { transform: scale(0.8); }
+        h1 { font-size: 44px; }
+        h2 { font-size: 32px; }
+        th, td { font-size: 24px; }
     }
     @media (max-height: 900px) {
-        .container { transform: scale(0.8); }
-        h1 { font-size: 38px !important; }
-        h2 { font-size: 28px !important; }
-        th, td { font-size: 20px !important; padding: 8px !important; }
+        .container { transform: scale(0.7); }
+        h1 { font-size: 40px; }
+        h2 { font-size: 28px; }
+        th, td { font-size: 20px; }
     }
-    @media (max-height: 768px) {
         .container { transform: scale(0.7); }
         h1 { font-size: 34px !important; }
         h2 { font-size: 24px !important; }
@@ -181,6 +226,7 @@
     <footer>לפרטים על חסות נר למאור – פנו לגבאי</footer>
 </body>
 </html>
+
 
 
 
