@@ -6,28 +6,45 @@
     <title>נר למאור תשפ״ו - [שם בית הכנסת]</title>
     <style>
         html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* Prevents any scrolling */
-            background-color: #001f3f;
-        }
-        body {
-            font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
-            color: #ffd700;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .container {
-            max-height: 100vh;
-            max-width: 100vw;
-            transform-origin: top center;
-            transform: scale(0.95); /* Starts slightly scaled down - adjust if needed */
-            width: 100%;
-            text-align: center;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #001f3f;
+    }
+    body {
+        font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
+        color: #ffd700;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .container {
+        width: 95vw;
+        max-width: 95vw;
+        max-height: 95vh;
+        overflow: hidden;
+        transform-origin: top center;
+        transform: scale(1);
+    }
+    @media (max-height: 1080px) {
+        .container { transform: scale(0.9); }
+        h1 { font-size: 42px !important; }
+        h2 { font-size: 32px !important; }
+        th, td { font-size: 24px !important; padding: 10px !important; }
+    }
+    @media (max-height: 900px) {
+        .container { transform: scale(0.8); }
+        h1 { font-size: 38px !important; }
+        h2 { font-size: 28px !important; }
+        th, td { font-size: 20px !important; padding: 8px !important; }
+    }
+    @media (max-height: 768px) {
+        .container { transform: scale(0.7); }
+        h1 { font-size: 34px !important; }
+        h2 { font-size: 24px !important; }
+        th, td { font-size: 18px !important; padding: 6px !important; }
         }
         h1 {
             font-size: 48px;
@@ -164,6 +181,7 @@
     <footer>לפרטים על חסות נר למאור – פנו לגבאי</footer>
 </body>
 </html>
+
 
 
 
