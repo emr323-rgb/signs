@@ -32,11 +32,13 @@
             overflow: hidden;
         }
         .book-column {
-            background-color: #002244;
-            border: 2px solid transparent
-            border-radius: 10px;
-            padding: 15px;
-            overflow-y: auto;
+           background-color: rgba(0, 20, 50, 0.4);    /* Light tint – shows photo through */
+    backdrop-filter: blur(8px);                /* Blurs the background behind text */
+    -webkit-backdrop-filter: blur(8px);        /* For Safari */
+    border: 1px solid rgba(255, 215, 0, 0.3);  /* Optional subtle gold edge */
+    border-radius: 12px;
+    padding: 15px;
+    overflow-y: auto;
         }
         h2 {
             font-size: 32px;
@@ -193,6 +195,7 @@
     <footer>לפרטים על חסות נר למאור – פנו לגבאי</footer>
 </body>
 </html>
+
 
 
 
