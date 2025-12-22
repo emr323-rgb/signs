@@ -5,13 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>נר למאור תשפ״ו - [שם בית הכנסת]</title>
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents any scrolling */
+            background-color: #001f3f;
+        }
         body {
             font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
-            background-color: #001f3f;
             color: #ffd700;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
             padding: 20px;
-            margin: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            max-height: 100vh;
+            max-width: 100vw;
+            transform-origin: top center;
+            transform: scale(0.95); /* Starts slightly scaled down - adjust if needed */
+            width: 100%;
+            text-align: center;
         }
         h1 {
             font-size: 48px;
@@ -35,9 +51,9 @@
             direction: rtl;
         }
         th, td {
-            padding: 15px;
+            padding: 12px;
             border: 2px solid #ffd700;
-            font-size: 28px;
+            font-size: 26px;
         }
         th {
             background-color: #005588;
@@ -53,15 +69,23 @@
             font-style: italic;
         }
         footer {
-            margin-top: 50px;
-            font-size: 24px;
+            margin-top: 40px;
+            font-size: 22px;
             color: #aaaaaa;
+        }
+        /* Media query for very tall/narrow screens (e.g., portrait mode) */
+        @media (max-height: 800px) or (max-width: 1200px) {
+            .container { transform: scale(0.8); }
+            h1 { font-size: 40px; }
+            h2 { font-size: 30px; }
+            th, td { font-size: 20px; padding: 8px; }
         }
     </style>
 </head>
 <body>
-    <h1>נר למאור תשפ״ו</h1>
-    <h1>לע״נ / לכבוד / בזכות</h1>
+    <div class="container">
+        <h1>נר למאור תשפ״ו</h1>
+        <h1>לע״נ / לכבוד / בזכות</h1>
 
     <h2>ספר בראשית</h2>
     <table>
@@ -140,4 +164,5 @@
     <footer>לפרטים על חסות נר למאור – פנו לגבאי</footer>
 </body>
 </html>
+
 
