@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>נר למאור - תודה על התרומה השבועית</title>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            background: url('https://raw.githubusercontent.com/emr323-rgb/signs/main/IMG-20220822-WA0002.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
+            color: #e0e0ff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .panel {
+            background-color: rgba(0, 30, 60, 0.55);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 30px;
+            padding: 60px 100px;
+            max-width: 90%;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        h1 {
+            font-size: 80px;
+            margin: 20px 0;
+            color: #ffffff;
+        }
+        .parsha-name {
+            font-size: 75px;
+            margin: 40px 0;
+            color: #ffd700;
+            font-weight: bold;
+        }
+        .sponsored-by {
+            font-size: 55px;
+            margin: 30px 0;
+        }
+        .donor-name {
+            font-size: 70px;
+            margin: 40px 0;
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .available {
+            font-size: 60px;
+            margin: 40px 0;
+            color: #ffd700;
+            font-style: italic;
+        }
+        .thanks {
+            font-size: 50px;
+            margin: 30px 0;
+            color: #e0e0ff;
+        }
+        .dedication {
+            font-size: 45px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <h1>נר למאור</h1>
+        <div class="parsha-name" id="parsha">טוען...</div>
+        <div class="sponsored-by" id="sponsored-text">נתרם ע״י</div>
+        <div id="donor-display"></div>
+        <div class="thanks">תודה רבה על תרומתכם!</div>
+        <div class="dedication" id="dedication"></div>
+    </div>
+
+    <script>
+        // Full list of parshiyot for 5786 in correct weekly order
+        // Starting Shabbat Bereshit: October 18, 2025
+        const parshiyot = [
+            "בראשית", "נח", "לך לך", "וירא", "חיי שרה",
+            "תולדות", "ויצא", "וישלח", "וישב", "מקץ",
+            "ויגש", "ויחי", "שמות", "וארא", "בא",
+            "בשלח", "יתרו", "משפטים", "תרומה", "תצוה",
+            "כי תשא", "ויקהל־פקודי", "ויקרא", "צו", "שמיני",
+            "תזריע־מצורע", "אחרי מות־קדושים", "אמור", "בהר־בחוקותי", "במדבר",
+            "נשא", "בהעלותך", "שלח", "קרח", "חוקת",
+            "בלק", "פינחס", "מטות־מסעי", "דברים", "ואתחנן",
+            "עקב", "ראה", "שופטים", "כי תצא", "כי תבוא",
+            "נצבים", "וילך", "האזינו"
+        ];
+
+        // Start date of the year: Shabbat Bereshit 5786
+        const yearStart = new Date('2025-10-18T00:00:00');
+
+        // Donor list - EDIT THIS with your actual sponsors
+        // Use "" (empty string) for weeks with no sponsor
+        const donors = [
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", ""  // Add more if needed - must match parshiyot length
+        ];
+
+        // Optional dedication line (לע״נ / לכבוד / בזכות etc.)
+        // Leave "" if none
+        const dedications = [
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", ""
+        ];
+
+        // Calculate current week
+        const today = new Date();
+        const diffMs = today - yearStart;
+        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        let weekIndex = Math.floor(diffDays / 7);
+
+        // Safety: if past the end of the year, show last parsha
+        if (weekIndex >= parshiyot.length) weekIndex = parshiyot.length - 1;
+        if (weekIndex < 0) weekIndex = 0;
+
+        const currentParsha = parshiyot[weekIndex];
+        const currentDonor = donors[weekIndex]?.trim() || "";
+        const currentDed = dedications[weekIndex]?.trim() || "";
+
+        // Update page content
+        document.getElementById('parsha').textContent = `פרשת ${currentParsha}`;
+
+        if (currentDonor) {
+            document.getElementById('sponsored-text').textContent = "נתרם ע״י";
+            document.getElementById('donor-display').innerHTML = `<div class="donor-name">${currentDonor}</div>`;
+            if (currentDed) {
+                document.getElementById('dedication').textContent = currentDed;
+            } else {
+                document.getElementById('dedication').style.display = 'none';
+            }
+        } else {
+            document.getElementById('sponsored-text').textContent = "";
+            document.getElementById('donor-display').innerHTML = `<div class="available">זמין לחסות השבוע</div>`;
+            document.getElementById('dedication').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
