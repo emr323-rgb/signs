@@ -160,61 +160,70 @@
     </div>
 
     <script>
-        // Fetch zmanim from Hebcal API for Lakewood NJ
-        const geonameid = '5100280';  // Lakewood NJ
-        const today = new Date().toISOString().split('T')[0];  // YYYY-MM-DD
-        const url = `https://www.hebcal.com/zmanim?cfg=json&geonameid=${geonameid}&date=${today}`;
+        <script>
+    // Fetch zmanim from Hebcal API for Lakewood NJ
+    const geonameid = '5100280';  // Lakewood NJ
+    const today = new Date().toISOString().split('T')[0];  // YYYY-MM-DD
+    const url = `https://www.hebcal.com/zmanim?cfg=json&geonameid=${geonameid}&date=${today}`;
 
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                const times = data.times;
+    fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error('Network error');
+            return response.json();
+        })
+        .then(data => {
+            const times = data.times || {};
+            const location = data.location || {};
 
-                // Display date
-                document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL');
+            // Hebrew date
+            document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-                // Zmanim section
-                document.getElementById('netz').textContent = formatTime(times.sunrise);
-                document.getElementById('sof-shema-gra').textContent = formatTime(times.sofZmanShmaGRA);
-                document.getElementById('sof-shema-mga').textContent = formatTime(times.sofZmanShmaMGA);
-                document.getElementById('chatzot').textContent = formatTime(times.chatzot);
-                document.getElementById('mincha-gedola').textContent = formatTime(times.minchaGedola);
-                document.getElementById('plag').textContent = formatTime(times.plagHaMincha);
-                document.getElementById('sunset').textContent = formatTime(times.sunset);
-                document.getElementById('tzeit').textContent = formatTime(times.tzeit);
+            // Helper to extract and format time (handles full ISO strings)
+            function getTime(key) {
+                const iso = times[key];
+                if (!iso) return 'לא זמין';
+                const date = new Date(iso);
+                return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+            }
 
-                // Davening (variable examples - edit formulas)
-                const minchaTime = subtractMinutes(times.plagHaMincha, 15);
-                document.getElementById('mincha-time').textContent = formatTime(minchaTime);
+            // Fill zmanim
+            document.getElementById('netz').textContent = getTime('sunrise') || 'לא זמין';
+            document.getElementById('sof-shema-gra').textContent = getTime('sofZmanShmaGRA') || 'לא זמין';
+            document.getElementById('sof-shema-mga').textContent = getTime('sofZmanShmaMGA') || 'לא זמין';
+            document.getElementById('chatzot').textContent = getTime('chatzot') || 'לא זמין';
+            document.getElementById('mincha-gedola').textContent = getTime('minchaGedola') || 'לא זמין';
+            document.getElementById('plag').textContent = getTime('plagHaMincha') || 'לא זמין';
+            document.getElementById('sunset').textContent = getTime('sunset') || 'לא זמין';
+            document.getElementById('tzeit').textContent = getTime('tzeit720') || getTime('tzeit') || 'לא זמין';  // Uses 72 min if available
 
-                const maarivTime = addMinutes(times.sunset, 20);
-                document.getElementById('maariv-time').textContent = formatTime(maarivTime);
+            // Variable davening examples (edit offsets as needed)
+            const plagTime = times.plagHaMincha ? new Date(times.plagHaMincha) : null;
+            if (plagTime) {
+                plagTime.setMinutes(plagTime.getMinutes() - 15);
+                document.getElementById('mincha-time').textContent = plagTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+            } else {
+                document.getElementById('mincha-time').textContent = 'לא זמין';
+            }
 
-                // Shiur (variable example)
-                const halachaTime = addMinutes(maarivTime, 30);
-                document.getElementById('halacha-time').textContent = formatTime(halachaTime);
-            })
-            .catch(error => console.error('Error fetching zmanim:', error));
+            const sunsetTime = times.sunset ? new Date(times.sunset) : null;
+            if (sunsetTime) {
+                sunsetTime.setMinutes(sunsetTime.getMinutes() + 20);
+                document.getElementById('maariv-time').textContent = sunsetTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+            } else {
+                document.getElementById('maariv-time').textContent = 'לא זמין';
+            }
 
-        // Helper to format ISO time to HH:MM AM/PM (edit for 24hr if preferred)
-        function formatTime(isoString) {
-            const date = new Date(isoString);
-            return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-        }
-
-        // Subtract minutes from ISO time
-        function subtractMinutes(isoString, minutes) {
-            const date = new Date(isoString);
-            date.setMinutes(date.getMinutes() - minutes);
-            return date.toISOString();
-        }
-
-        // Add minutes to ISO time
-        function addMinutes(isoString, minutes) {
-            const date = new Date(isoString);
-            date.setMinutes(date.getMinutes() + minutes);
-            return date.toISOString();
-        }
-    </script>
-</body>
-</html>
+            // Variable shiur example
+            if (sunsetTime) {
+                const halacha = new Date(sunsetTime);
+                halacha.setMinutes(halacha.getMinutes() + 50);  // Maariv + 30 min example
+                document.getElementById('halacha-time').textContent = halacha.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+            } else {
+                document.getElementById('halacha-time').textContent = 'לא זמין';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.querySelectorAll('.time-value').forEach(el => el.textContent = 'שגיאה בטעינה');
+        });
+</script>
