@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>זמנים - בית הכנסת לייקווד</title>
+    <script src="https://unpkg.com/kosher-zmanim@0.3.3/dist/kosherzmanim.min.js"></script>
     <style>
         html, body {
             height: 100%;
@@ -132,7 +133,7 @@
                 <div class="time-item">מנחה גדולה: <span class="time-value" id="mincha-gedola"></span></div>
                 <div class="time-item">פלג המנחה: <span class="time-value" id="plag"></span></div>
                 <div class="time-item">שקיעת החמה: <span class="time-value" id="sunset"></span></div>
-                <div class="time-item">צאת הכוכבים (72 דק'): <span class="time-value" id="tzeit"></span></div>
+                <div class="time-item">צאת הכוכבים (8.5°): <span class="time-value" id="tzeit"></span></div>
             </div>
 
             <div class="section" id="davening-section">
@@ -160,63 +161,43 @@
     </div>
 
     <script>
-        // Fetch zmanim from Hebcal API for Lakewood NJ
-        const geonameid = '5100280';  // Lakewood NJ
-        const today = new Date().toISOString().split('T')[0];
-        const url = `https://www.hebcal.com/zmanim?cfg=json&geonameid=${geonameid}&date=${today}`;
+        // Set up location for Lakewood NJ
+        const geoLocation = new KosherZmanim.GeoLocation("Lakewood, NJ", 40.096, -74.222, 15, "America/New_York");
 
-        fetch(url)
-            .then(response => {
-                if (!response.ok) throw new Error('Network error');
-                return response.json();
-            })
-            .then(data => {
-                const times = data.times || {};
+        // Create ComplexZmanimCalendar (includes more advanced calculations)
+        const czc = new KosherZmanim.ComplexZmanimCalendar(geoLocation);
 
-                // Hebrew date
-                document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        // Get today's date
+        const today = new Date();
+        document.getElementById('current-date').textContent = today.toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-                // Format time helper
-                function formatTime(iso) {
-                    if (!iso) return 'לא זמין';
-                    const date = new Date(iso);
-                    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-                }
+        // Format time helper (to HH:MM AM/PM)
+        function formatTime(date) {
+            return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        }
 
-                // Fill zmanim (using correct Hebcal keys)
-                document.getElementById('netz').textContent = formatTime(times.sunrise);
-                document.getElementById('shema-gra').textContent = formatTime(times.sofZmanShma);  // Standard GRA
-                document.getElementById('shema-mga').textContent = formatTime(times.sofZmanShmaMGA);
-                document.getElementById('chatzot').textContent = formatTime(times.chatzot);
-                document.getElementById('mincha-gedola').textContent = formatTime(times.minchaGedola);
-                document.getElementById('plag').textContent = formatTime(times.plagHaMincha);
-                document.getElementById('sunset').textContent = formatTime(times.sunset);
-                document.getElementById('tzeit').textContent = formatTime(times.tzeit72min);  // Common 72 min tzeit
+        // Zmanim section
+        document.getElementById('netz').textContent = formatTime(czc.getSunrise());
+        document.getElementById('shema-gra').textContent = formatTime(czc.getSofZmanShmaGRA());
+        document.getElementById('shema-mga').textContent = formatTime(czc.getSofZmanShmaMGA());
+        document.getElementById('chatzot').textContent = formatTime(czc.getChatzos());
+        document.getElementById('mincha-gedola').textContent = formatTime(czc.getMinchaGedola());
+        document.getElementById('plag').textContent = formatTime(czc.getPlagHamincha());
+        document.getElementById('sunset').textContent = formatTime(czc.getSunset());
+        document.getElementById('tzeit').textContent = formatTime(czc.getTzaisGeonim8Point5Degrees());
 
-                // Variable davening
-                const plagDate = times.plagHaMincha ? new Date(times.plagHaMincha) : null;
-                if (plagDate) {
-                    plagDate.setMinutes(plagDate.getMinutes() - 15);
-                    document.getElementById('mincha-time').textContent = plagDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-                }
+        // Variable davening times
+        const plag = czc.getPlagHamincha();
+        plag.setMinutes(plag.getMinutes() - 15);
+        document.getElementById('mincha-time').textContent = formatTime(plag);
 
-                const sunsetDate = times.sunset ? new Date(times.sunset) : null;
-                if (sunsetDate) {
-                    sunsetDate.setMinutes(sunsetDate.getMinutes() + 20);
-                    document.getElementById('maariv-time').textContent = sunsetDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-                }
+        const sunset = czc.getSunset();
+        sunset.setMinutes(sunset.getMinutes() + 20);
+        document.getElementById('maariv-time').textContent = formatTime(sunset);
 
-                // Variable shiur
-                if (sunsetDate) {
-                    const halachaDate = new Date(sunsetDate);
-                    halachaDate.setMinutes(halachaDate.getMinutes() + 30);  // Adjust offset as needed
-                    document.getElementById('halacha-time').textContent = halachaDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching zmanim:', error);
-                document.getElementById('current-date').textContent = 'שגיאה בטעינה';
-            });
+        // Variable shiur times
+        sunset.setMinutes(sunset.getMinutes() + 10);  // Maariv + 30 min from earlier example (adjust as needed)
+        document.getElementById('halacha-time').textContent = formatTime(sunset);
     </script>
 </body>
 </html>
