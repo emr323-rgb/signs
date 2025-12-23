@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>זמנים - בית הכנסת</title>
+    <title>זמנים - בית הכנסת לייקווד</title>
     <style>
         html, body {
             height: 100%;
@@ -117,7 +117,7 @@
         <div class="header">
             <h1>זמנים יומיים</h1>
             <h1>לייקווד, ניו ג'רזי</h1>
-            <h1 id="current-date"></h1>
+            <h1 id="current-date">טוען...</h1>
         </div>
     </div>
 
@@ -125,14 +125,14 @@
         <div class="zmanim-grid">
             <div class="section" id="zmanim-section">
                 <h2>זמני היום</h2>
-                <div class="time-item">נטץ: <span class="time-value" id="netz"></span></div>
-                <div class="time-item">סוף זמן ק"ש (גר"א): <span class="time-value" id="sof-shema-gra"></span></div>
-                <div class="time-item">סוף זמן ק"ש (מג"א): <span class="time-value" id="sof-shema-mga"></span></div>
-                <div class="time-item">חצות: <span class="time-value" id="chatzot"></span></div>
+                <div class="time-item">נטץ החמה: <span class="time-value" id="netz"></span></div>
+                <div class="time-item">סוף זמן קריאת שמע (גר״א): <span class="time-value" id="shema-gra"></span></div>
+                <div class="time-item">סוף זמן קריאת שמע (מג״א): <span class="time-value" id="shema-mga"></span></div>
+                <div class="time-item">חצות היום: <span class="time-value" id="chatzot"></span></div>
                 <div class="time-item">מנחה גדולה: <span class="time-value" id="mincha-gedola"></span></div>
                 <div class="time-item">פלג המנחה: <span class="time-value" id="plag"></span></div>
-                <div class="time-item">שקיעה: <span class="time-value" id="sunset"></span></div>
-                <div class="time-item">צאת הכוכבים: <span class="time-value" id="tzeit"></span></div>
+                <div class="time-item">שקיעת החמה: <span class="time-value" id="sunset"></span></div>
+                <div class="time-item">צאת הכוכבים (72 דק'): <span class="time-value" id="tzeit"></span></div>
             </div>
 
             <div class="section" id="davening-section">
@@ -160,70 +160,63 @@
     </div>
 
     <script>
-        <script>
-    // Fetch zmanim from Hebcal API for Lakewood NJ
-    const geonameid = '5100280';  // Lakewood NJ
-    const today = new Date().toISOString().split('T')[0];  // YYYY-MM-DD
-    const url = `https://www.hebcal.com/zmanim?cfg=json&geonameid=${geonameid}&date=${today}`;
+        // Fetch zmanim from Hebcal API for Lakewood NJ
+        const geonameid = '5100280';  // Lakewood NJ
+        const today = new Date().toISOString().split('T')[0];
+        const url = `https://www.hebcal.com/zmanim?cfg=json&geonameid=${geonameid}&date=${today}`;
 
-    fetch(url)
-        .then(response => {
-            if (!response.ok) throw new Error('Network error');
-            return response.json();
-        })
-        .then(data => {
-            const times = data.times || {};
-            const location = data.location || {};
+        fetch(url)
+            .then(response => {
+                if (!response.ok) throw new Error('Network error');
+                return response.json();
+            })
+            .then(data => {
+                const times = data.times || {};
 
-            // Hebrew date
-            document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                // Hebrew date
+                document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-            // Helper to extract and format time (handles full ISO strings)
-            function getTime(key) {
-                const iso = times[key];
-                if (!iso) return 'לא זמין';
-                const date = new Date(iso);
-                return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-            }
+                // Format time helper
+                function formatTime(iso) {
+                    if (!iso) return 'לא זמין';
+                    const date = new Date(iso);
+                    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                }
 
-            // Fill zmanim
-            document.getElementById('netz').textContent = getTime('sunrise') || 'לא זמין';
-            document.getElementById('sof-shema-gra').textContent = getTime('sofZmanShmaGRA') || 'לא זמין';
-            document.getElementById('sof-shema-mga').textContent = getTime('sofZmanShmaMGA') || 'לא זמין';
-            document.getElementById('chatzot').textContent = getTime('chatzot') || 'לא זמין';
-            document.getElementById('mincha-gedola').textContent = getTime('minchaGedola') || 'לא זמין';
-            document.getElementById('plag').textContent = getTime('plagHaMincha') || 'לא זמין';
-            document.getElementById('sunset').textContent = getTime('sunset') || 'לא זמין';
-            document.getElementById('tzeit').textContent = getTime('tzeit720') || getTime('tzeit') || 'לא זמין';  // Uses 72 min if available
+                // Fill zmanim (using correct Hebcal keys)
+                document.getElementById('netz').textContent = formatTime(times.sunrise);
+                document.getElementById('shema-gra').textContent = formatTime(times.sofZmanShma);  // Standard GRA
+                document.getElementById('shema-mga').textContent = formatTime(times.sofZmanShmaMGA);
+                document.getElementById('chatzot').textContent = formatTime(times.chatzot);
+                document.getElementById('mincha-gedola').textContent = formatTime(times.minchaGedola);
+                document.getElementById('plag').textContent = formatTime(times.plagHaMincha);
+                document.getElementById('sunset').textContent = formatTime(times.sunset);
+                document.getElementById('tzeit').textContent = formatTime(times.tzeit72min);  // Common 72 min tzeit
 
-            // Variable davening examples (edit offsets as needed)
-            const plagTime = times.plagHaMincha ? new Date(times.plagHaMincha) : null;
-            if (plagTime) {
-                plagTime.setMinutes(plagTime.getMinutes() - 15);
-                document.getElementById('mincha-time').textContent = plagTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-            } else {
-                document.getElementById('mincha-time').textContent = 'לא זמין';
-            }
+                // Variable davening
+                const plagDate = times.plagHaMincha ? new Date(times.plagHaMincha) : null;
+                if (plagDate) {
+                    plagDate.setMinutes(plagDate.getMinutes() - 15);
+                    document.getElementById('mincha-time').textContent = plagDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                }
 
-            const sunsetTime = times.sunset ? new Date(times.sunset) : null;
-            if (sunsetTime) {
-                sunsetTime.setMinutes(sunsetTime.getMinutes() + 20);
-                document.getElementById('maariv-time').textContent = sunsetTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-            } else {
-                document.getElementById('maariv-time').textContent = 'לא זמין';
-            }
+                const sunsetDate = times.sunset ? new Date(times.sunset) : null;
+                if (sunsetDate) {
+                    sunsetDate.setMinutes(sunsetDate.getMinutes() + 20);
+                    document.getElementById('maariv-time').textContent = sunsetDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                }
 
-            // Variable shiur example
-            if (sunsetTime) {
-                const halacha = new Date(sunsetTime);
-                halacha.setMinutes(halacha.getMinutes() + 50);  // Maariv + 30 min example
-                document.getElementById('halacha-time').textContent = halacha.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-            } else {
-                document.getElementById('halacha-time').textContent = 'לא זמין';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            document.querySelectorAll('.time-value').forEach(el => el.textContent = 'שגיאה בטעינה');
-        });
-</script>
+                // Variable shiur
+                if (sunsetDate) {
+                    const halachaDate = new Date(sunsetDate);
+                    halachaDate.setMinutes(halachaDate.getMinutes() + 30);  // Adjust offset as needed
+                    document.getElementById('halacha-time').textContent = halachaDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching zmanim:', error);
+                document.getElementById('current-date').textContent = 'שגיאה בטעינה';
+            });
+    </script>
+</body>
+</html>
