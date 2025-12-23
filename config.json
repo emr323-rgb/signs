@@ -96,7 +96,7 @@
     ],
     "mincha": [
       {
-        "label": מנחה (earliest)",
+        "label": Mincha (earliest)",
         "type": "weeklyLatestZmanOrFixed",
         "baseField": "MinchaStrict",
         "fixedTime": "13:45",
