@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="refresh" content="3600">
+  <title>Shul Zmanim & Schedule</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="header">
+      <div class="header-left">
+        <div class="shul-name" id="shul-name">Shul Screen</div>
+        <div class="shul-sub" id="shul-sub">Lakewood, NJ</div>
+      </div>
+      <div class="header-right">
+        <div class="date-line" id="date-line">Loading…</div>
+        <div class="date-sub" id="date-sub"></div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="panel">
+        <div class="panel-title">Zmanim</div>
+        <div class="panel-body">
+          <div class="zmanim-grid" id="zmanim-grid">
+            <div class="muted">Loading zmanim…</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">Davening Times</div>
+        <div class="panel-body" id="schedule">
+          <div class="schedule-group">
+            <div class="group-title">Shacharis</div>
+            <div class="group-list" id="shacharis-list"><div class="muted">Loading…</div></div>
+          </div>
+
+          <div class="schedule-group">
+            <div class="group-title">Mincha</div>
+            <div class="group-list" id="mincha-list"><div class="muted">Loading…</div></div>
+          </div>
+
+          <div class="schedule-group">
+            <div class="group-title">Maariv</div>
+            <div class="group-list" id="maariv-list"><div class="muted">Loading…</div></div>
+          </div>
+
+          <div class="badge-row">
+            <div class="badge" id="badge-weekly-mincha-maariv" title="Computed weekly rule">Mincha/Maariv: —</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div id="status" class="status">Loading…</div>
+      <div class="credits">
+        Zmanim data: MyZmanim API
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

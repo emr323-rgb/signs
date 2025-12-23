@@ -1,0 +1,140 @@
+{
+  "shul": {
+    "name": "Your Shul Name",
+    "locationLabel": "Lakewood, NJ"
+  },
+  "myzmanim": {
+    "user": "PUT_YOUR_USER_HERE",
+    "key": "PUT_YOUR_KEY_HERE",
+    "postalQuery": "08701",
+    "language": "en",
+    "coding": "JS"
+  },
+  "display": {
+    "refreshSeconds": 600,
+    "timeFormat": "h12",
+    "anchorNextWeekOnFriShabbos": true
+  },
+  "rules": {
+    "weekStartsOn": 0,
+    "weekdaySunThu": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "weeklyMinchaMaariv": {
+      "baseField": "SunsetDefault",
+      "offsetMin": -15
+    },
+    "weeklyLatestMinchaGedola": {
+      "baseField": "MinchaStrict",
+      "offsetMin": 0,
+      "minFixedTime": "13:45"
+    }
+  },
+  "zmanim": [
+    {
+      "label": "Netz (Sunrise)",
+      "field": "SunriseDefault"
+    },
+    {
+      "label": "Sof Zman Krias Shema (Gra)",
+      "field": "ShemaGra"
+    },
+    {
+      "label": "Sof Zman Tefillah (Gra)",
+      "field": "ShachrisGra"
+    },
+    {
+      "label": "Chatzos",
+      "field": "Midday"
+    },
+    {
+      "label": "Mincha Gedola (Lechumra)",
+      "field": "MinchaStrict"
+    },
+    {
+      "label": "Plag HaMincha",
+      "field": "PlagGra"
+    },
+    {
+      "label": "Shkiah (Sunset)",
+      "field": "SunsetDefault"
+    },
+    {
+      "label": "Tzeis (72 min)",
+      "field": "Night72fix"
+    }
+  ],
+  "davening": {
+    "shacharis": [
+      {
+        "label": "Minyan 1",
+        "type": "fixed",
+        "time": "06:45"
+      },
+      {
+        "label": "Minyan 2",
+        "type": "fixed",
+        "time": "07:00"
+      },
+      {
+        "label": "Minyan 3",
+        "type": "fixed",
+        "time": "08:00"
+      },
+      {
+        "label": "Minyan 4 (Sunday only)",
+        "type": "fixedIfDow",
+        "dow": [
+          0
+        ],
+        "time": "08:30"
+      }
+    ],
+    "mincha": [
+      {
+        "label": "Mincha (earliest)",
+        "type": "weeklyLatestZmanOrFixed",
+        "baseField": "MinchaStrict",
+        "fixedTime": "13:45",
+        "offsetMin": 0
+      },
+      {
+        "label": "Mincha / Maariv",
+        "type": "weeklyEarliestZman",
+        "baseField": "SunsetDefault",
+        "offsetMin": -15
+      },
+      {
+        "label": "Mincha 3",
+        "type": "manualNote",
+        "note": "Edit config.json to add/adjust a third Mincha time"
+      }
+    ],
+    "maariv": [
+      {
+        "label": "Minyan 1",
+        "type": "fixed",
+        "time": "18:05"
+      },
+      {
+        "label": "Minyan 2",
+        "type": "fixed",
+        "time": "19:15"
+      },
+      {
+        "label": "Minyan 3",
+        "type": "fixed",
+        "time": "21:30"
+      },
+      {
+        "label": "Minyan 4",
+        "type": "fixed",
+        "time": "22:15"
+      }
+    ]
+  }
+}
