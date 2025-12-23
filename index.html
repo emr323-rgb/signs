@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="refresh" content="3600">
+  <title>זמנים - בית הכנסת לייקווד</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="header-wrapper">
+    <div class="header">
+      <h1 id="shul-name">בית הכנסת</h1>
+      <div class="subline" id="shul-sub">לייקווד, ניו ג׳רזי</div>
+      <div class="date-line" id="date-line"></div>
+      <div class="date-sub" id="date-sub"></div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="zmanim-grid">
+
+      <div class="section">
+        <h2>זמני היום</h2>
+        <div id="zmanim-grid">
+          <div class="muted">טוען זמנים…</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>זמני תפילות</h2>
+
+        <div class="subsection">
+          <div class="subhead">שחרית</div>
+          <div id="shacharis-list"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="subsection">
+          <div class="subhead">מנחה</div>
+          <div id="mincha-list"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="subsection">
+          <div class="subhead">מעריב</div>
+          <div id="maariv-list"></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>השבוע</h2>
+
+        <div class="time-item">
+          <span class="time-label">מנחה / מעריב השבוע</span>
+          <span class="time-value" id="badge-weekly-mincha-maariv">—</span>
+        </div>
+
+        <div class="note">
+          הזמנים מתעדכנים אוטומטית על פי מייזמנים (MyZmanim).
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-wrapper">
+    <footer>
+      <div id="status">טוען…</div>
+      <div class="credits">Zmanim data: MyZmanim API</div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
