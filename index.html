@@ -89,10 +89,23 @@
         }
 
         footer {
-            text-align: center;
-            padding: 15px;
-            font-size: 20px;
-            color: #aaaaaa;
+          .footer-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+footer {
+    text-align: center;
+    background-color: rgba(0, 30, 60, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 15px 40px;        /* Adjust horizontal padding to fit text snugly */
+    font-size: 20px;
+    color: #e0e0ff;
+    max-width: 90%;
         }
 
         /* Responsive adjustments */
@@ -207,10 +220,11 @@
                 <tr><td class="parsha">האזינו</td><td class="donor">Available</td></tr>
             </table>
         </div>
-
+        <div class="footer-wrapper">
     <footer>For Dedications, Please Contact Binyomin Steinfeld</footer>
 </body>
 </html>
+
 
 
 
