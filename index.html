@@ -6,92 +6,95 @@
     <title>נר למאור תשפ״ו</title>
     <style>
         html, body {
-           height: 100%;
-        margin: 0;
-        padding: 0;
-        background: url('https://raw.githubusercontent.com/emr323-rgb/signs/main/IMG-20220822-WA0002.jpg') no-repeat center center fixed;
-        background-size: cover;
-        overflow: hidden;
-        font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
-        color:#e0e0ff;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: url('https://raw.githubusercontent.com/emr323-rgb/signs/main/IMG-20220822-WA0002.jpg') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+            font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
+            color: #e0e0ff;                  /* Light blue text */
         }
+
         .header {
-  text-align: center;
-    background-color: rgba(0, 30, 60, 0.45);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 15px;
-    padding: 20px 40px;   /* Keeps it snug */
-    max-width: 90%;
-}
+            text-align: center;
+            background-color: rgba(0, 30, 60, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px;
         }
+
         h1 {
             font-size: 50px;
             margin: 10px 0;
         }
+
         .books-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* 5 columns on wide screens */
+            grid-template-columns: repeat(5, 1fr);
             gap: 20px;
-            padding: 0 20px;
+            padding: 0 20px 20px 20px;
             max-height: 80vh;
             overflow: hidden;
+            align-content: start;            /* Makes columns fit content height */
         }
+
         .book-column {
-          background-color: rgba(0, 20, 50, 0.35);   /* Lighter tint – was 0.55, now 0.35 */
-    backdrop-filter: blur(12px);              /* Slightly less blur for more photo visibility */
-    -webkit-backdrop-filter: blur(12px);
-    border: none;
-    border-radius: 12px;
-    padding: 15px;
-    overflow-y: auto;
-    align-self: start;
-}
+            background-color: rgba(0, 20, 50, 0.35);   /* Light dark tint */
+            backdrop-filter: blur(10px);              /* Frosted glass blur */
+            -webkit-backdrop-filter: blur(10px);
+            border: none;                             /* No outer border */
+            border-radius: 12px;
+            padding: 15px;
+            overflow-y: auto;
+            align-self: start;                        /* Column height fits content */
         }
+
         h2 {
             font-size: 32px;
-            background-color:;
             color: #e0e0ff;
+            background-color: rgba(0, 40, 80, 0.4);
             padding: 10px;
             border-radius: 8px;
             text-align: center;
             margin: 0 0 15px 0;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 22px;
         }
+
         th, td {
             padding: 8px;
-            border:
+            border: none;                /* No grid lines at all */
         }
+
         th {
-            background-color: ;
             color: #e0e0ff;
+            font-weight: bold;
         }
+
         td.parsha {
-            background-color: 
             text-align: right;
         }
+
         td.donor {
-            background-color: 
-            color: #ffffff;
+            color: #ffffff;              /* Pure white for donor names – easier to read */
             font-style: italic;
             text-align: right;
         }
+
         footer {
-          text-align: center;
-    background-color: rgba(0, 30, 60, 0.45);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 15px;
-    padding: 15px 30px;
-    font-size: 20px;
-    color: #e0e0ff;
-    max-width: 90%;
-}
+            text-align: center;
+            padding: 15px;
+            font-size: 20px;
+            color: #aaaaaa;
         }
+
         /* Responsive adjustments */
         @media (max-width: 1600px) {
             .books-grid { grid-template-columns: repeat(3, 1fr); }
@@ -109,7 +112,6 @@
     </style>
 </head>
 <body>
-    <div style="display: flex; justify-content: center; margin-bottom: 20px;">
     <div class="header">
         <h1>Bais Medrash of Albert נר למאור תשפ״ו</h1>
          <h1>מי שברך אבותינו...ומי שנותנים נר למאור</h1>
@@ -205,11 +207,11 @@
                 <tr><td class="parsha">האזינו</td><td class="donor">Available</td></tr>
             </table>
         </div>
-    </div>style="display: flex; justify-content: center; margin-top: 20px;">
 
     <footer>For Dedications, Please Contact Binyomin Steinfeld</footer>
 </body>
 </html>
+
 
 
 
