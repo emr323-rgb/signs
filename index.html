@@ -14,13 +14,15 @@
             overflow: hidden;
             font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
             color: #e0e0ff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;   /* Pushes header to top, footer to bottom */
         }
 
-        /* Centering wrapper for header */
         .header-wrapper {
             display: flex;
             justify-content: center;
-            margin: 20px 0;
+            padding-top: 20px;
         }
 
         .header {
@@ -40,11 +42,16 @@
             margin: 10px 0;
         }
 
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px;
+        }
+
         .books-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 20px;
-            padding: 0 20px 20px 20px;
             align-content: start;
         }
 
@@ -95,11 +102,10 @@
             text-align: right;
         }
 
-        /* Centering wrapper for footer */
         .footer-wrapper {
             display: flex;
             justify-content: center;
-            margin: 20px 0;
+            padding-bottom: 20px;
         }
 
         footer {
@@ -231,6 +237,7 @@
             </table>
        </div>
 
+        </div>
     </div>
 
     <div class="footer-wrapper">
@@ -239,6 +246,7 @@
 
 </body>
 </html>
+
 
 
 
