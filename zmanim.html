@@ -159,80 +159,58 @@
     </div>
 
     <script>
-        // MyZmanim API credentials
-        const API_KEY = '84318fa94defdf4b3ee66cd222a3c256f0d486ec7d4abbd2cf23013e423bd616b32ea38d9b4ca1e8';
-        const API_USER = '0010457947';
-        const LOCATION_ID = '69581767';  // Confirmed Lakewood NJ ID from MyZmanim
-
+        // Free Hebcal API for Lakewood NJ
         const today = new Date().toISOString().split('T')[0];
-
-        const url = `https://api.myzmanim.com/engine1.json.aspx?coding=JS&language=en&locationid=${LOCATION_ID}&inputdate=${today}&key=${API_KEY}&user=${API_USER}`;
+        const url = `https://www.hebcal.com/zmanim?cfg=json&geonameid=5100280&date=${today}`;
 
         fetch(url)
-            .then(response => {
-                if (!response.ok) throw new Error('API error - check key/user/location');
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                const zman = data.Zman || {};
-                const time = data.Time || {};
+                const times = data.times;
 
-                document.getElementById('current-date').textContent = time.WeekdayHebrew || new Date().toLocaleDateString('he-IL');
+                document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-                function format(t) {
-                    if (!t) return 'לא זמין';
-                    return t;
+                function format(iso) {
+                    if (!iso) return 'לא זמין';
+                    const date = new Date(iso);
+                    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
                 }
 
-                document.getElementById('netz').textContent = format(zman.SunriseDefault);
-                document.getElementById('shema-gra').textContent = format(zman.ShemaGra);
-                document.getElementById('shema-mga').textContent = format(zman.ShemaMGA);
-                document.getElementById('chatzot').textContent = format(zman.Chatzot);
-                document.getElementById('mincha-gedola').textContent = format(zman.MinchaGedola);
-                document.getElementById('plag').textContent = format(zman.PlagHamincha);
-                document.getElementById('sunset').textContent = format(zman.SunsetDefault);
-                document.getElementById('tzeit').textContent = format(zman.Tzais72min);
+                document.getElementById('netz').textContent = format(times.sunrise);
+                document.getElementById('shema-gra').textContent = format(times.sofZmanShmaGRA || times.sofZmanShma);
+                document.getElementById('shema-mga').textContent = format(times.sofZmanShmaMGA);
+                document.getElementById('chatzot').textContent = format(times.chatzot);
+                document.getElementById('mincha-gedola').textContent = format(times.minchaGedola);
+                document.getElementById('plag').textContent = format(times.plagHaMincha);
+                document.getElementById('sunset').textContent = format(times.sunset);
+                document.getElementById('tzeit').textContent = format(times.tzais72min || times.tzais);
 
                 // Variable davening times
-                const plagTime = zman.PlagHamincha;
-                if (plagTime) {
-                    const [timeStr, period] = plagTime.split(' ');
-                    let [h, m] = timeStr.split(':');
-                    h = parseInt(h);
-                    if (period === 'PM' && h !== 12) h += 12;
-                    let date = new Date();
-                    date.setHours(h);
-                    date.setMinutes(parseInt(m) - 15);
-                    document.getElementById('mincha-time').textContent = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                const plag = times.plagHaMincha ? new Date(times.plagHaMincha) : null;
+                if (plag) {
+                    plag.setMinutes(plag.getMinutes() - 15);
+                    document.getElementById('mincha-time').textContent = format(plag.toISOString());
                 }
 
-                const sunsetTime = zman.SunsetDefault;
-                if (sunsetTime) {
-                    const [timeStr, period] = sunsetTime.split(' ');
-                    let [h, m] = timeStr.split(':');
-                    h = parseInt(h);
-                    if (period === 'PM' && h !== 12) h += 12;
-                    let date = new Date();
-                    date.setHours(h);
-                    date.setMinutes(parseInt(m) + 20);
-                    document.getElementById('maariv-time').textContent = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                const sunset = times.sunset ? new Date(times.sunset) : null;
+                if (sunset) {
+                    sunset.setMinutes(sunset.getMinutes() + 20);
+                    document.getElementById('maariv-time').textContent = format(sunset.toISOString());
                 }
 
-                if (sunsetTime) {
-                    const [timeStr, period] = sunsetTime.split(' ');
-                    let [h, m] = timeStr.split(':');
-                    h = parseInt(h);
-                    if (period === 'PM' && h !== 12) h += 12;
-                    let date = new Date();
-                    date.setHours(h);
-                    date.setMinutes(parseInt(m) + 50);  // Adjust as needed
-                    document.getElementById('halacha-time').textContent = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                if (sunset) {
+                    const halacha = new Date(sunset);
+                    halacha.setMinutes(halacha.getMinutes() + 30);
+                    document.getElementById('halacha-time').textContent = format(halacha.toISOString());
                 }
             })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('current-date').textContent = 'שגיאה בטעינה - בדוק מפתח API';
+            .catch(err => {
+                console.error(err);
+                document.getElementById('current-date').textContent = 'שגיאה בטעינה';
             });
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
