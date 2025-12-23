@@ -18,12 +18,15 @@
 
         .header {
             text-align: center;
-            background-color: rgba(0, 30, 60, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px;
+    background-color: rgba(0, 30, 60, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 20px 50px;        /* Adjust horizontal padding for snug fit */
+    margin: 20px auto;         /* Centers it vertically and horizontally */
+    display: inline-block;     /* ← Key line: makes box width fit the text */
+    width: fit-content;        /* ← Extra insurance for perfect snug fit */
+    max-width: 95%;
         }
 
         h1 {
@@ -125,6 +128,7 @@ footer {
     </style>
 </head>
 <body>
+    <div style="display: flex; justify-content: center;">
     <div class="header">
         <h1> נר למאור תשפ״ו</h1>
          <h1>מי שברך אבותינו...ומי שנותנים נר למאור</h1>
@@ -224,6 +228,7 @@ footer {
     <footer>For Dedications, Please Contact Binyomin Steinfeld</footer>
 </body>
 </html>
+
 
 
 
