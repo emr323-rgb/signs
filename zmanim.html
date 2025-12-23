@@ -122,27 +122,31 @@
 
     <div class="main-content">
         <div class="zmanim-grid">
+            <!-- Zmanim Section -->
             <div class="section">
                 <h2>זמני היום</h2>
                 <div class="time-item">נטץ החמה: <span class="time-value" id="netz">טוען...</span></div>
                 <div class="time-item">סוף זמן ק״ש (גר״א): <span class="time-value" id="shema-gra">טוען...</span></div>
-                <div class="time-item">סוף זמן ק״ש (מג״א): <span class="time-value" id="shema-mga">טוען...</span></div>
+                <div class="time-item">סוף זמן תפילה (גר״א): <span class="time-value" id="shachris-gra">טוען...</span></div>
                 <div class="time-item">חצות היום: <span class="time-value" id="chatzot">טוען...</span></div>
-                <div class="time-item">מנחה גדולה: <span class="time-value" id="mincha-gedola">טוען...</span></div>
+                <div class="time-item">מנחה גדולה (לְחוּמְרָא): <span class="time-value" id="mincha-strict">טוען...</span></div>
                 <div class="time-item">פלג המנחה: <span class="time-value" id="plag">טוען...</span></div>
                 <div class="time-item">שקיעת החמה: <span class="time-value" id="sunset">טוען...</span></div>
                 <div class="time-item">צאת הכוכבים (72 דק'): <span class="time-value" id="tzeit">טוען...</span></div>
             </div>
 
+            <!-- Davening Section -->
             <div class="section">
                 <h2>זמני תפילה</h2>
-                <div class="time-item">שחרית (קבוע): 7:00 AM</div>
-                <div class="time-item">מנחה: <span class="time-value" id="mincha-time">טוען...</span></div>
-                <div class="time-item">מעריב: <span class="time-value" id="maariv-time">טוען...</span></div>
-                <div class="time-item">מנחה שנייה (קבוע): 4:00 PM</div>
-                <div class="time-item">מעריב שני (קבוע): 9:00 PM</div>
+                <div class="time-item">שחרית 1: <span class="time-value" id="shacharis1">06:45</span></div>
+                <div class="time-item">שחרית 2: <span class="time-value" id="shacharis2">07:00</span></div>
+                <div class="time-item">שחרית 3: <span class="time-value" id="shacharis3">08:00</span></div>
+                <div class="time-item">מנחה / מעריב: <span class="time-value" id="mincha-maariv">טוען...</span></div>
+                <div class="time-item">מעריב 1: <span class="time-value" id="maariv1">18:05</span></div>
+                <div class="time-item">מעריב 2: <span class="time-value" id="maariv2">19:15</span></div>
             </div>
 
+            <!-- Shiurim Section -->
             <div class="section">
                 <h2>זמני שיעורים</h2>
                 <div class="time-item">שיעור גמרא (קבוע): 8:00 PM</div>
@@ -159,58 +163,70 @@
     </div>
 
     <script>
-        // Free Hebcal API for Lakewood NJ
+        // MyZmanim API credentials
+        const API_KEY = '743c42d7439af22a9a089548e11d631fbdfd55f3255799adff424ca8e4260852af24300d37df0e77';
+        const API_USER = '0010457947';
+        const LOCATION_POSTAL = '08701';  // Lakewood NJ postal code
+        const LANGUAGE = 'he';  // Hebrew labels
+        const CODING = 'JS';
+
+        // Today's date in YYYY-MM-DD
         const today = new Date().toISOString().split('T')[0];
-        const url = `https://www.hebcal.com/zmanim?cfg=json&geonameid=5100280&date=${today}`;
+
+        // Build the API URL
+        const url = `https://api.myzmanim.com/engine1.json.aspx?coding=${CODING}&language=${LANGUAGE}&postalquery=${LOCATION_POSTAL}&inputdate=${today}&key=${API_KEY}&user=${API_USER}`;
 
         fetch(url)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error('API error');
+                return response.json();
+            })
             .then(data => {
-                const times = data.times;
+                const zman = data.Zman || {};
+                const time = data.Time || {};
 
-                document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                // Hebrew date
+                document.getElementById('current-date').textContent = time.WeekdayHebrew || new Date().toLocaleDateString('he-IL');
 
-                function format(iso) {
-                    if (!iso) return 'לא זמין';
-                    const date = new Date(iso);
-                    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                // Format time helper
+                function format(t) {
+                    if (!t) return 'לא זמין';
+                    return t;  // MyZmanim returns formatted HH:MM AM/PM
                 }
 
-                document.getElementById('netz').textContent = format(times.sunrise);
-                document.getElementById('shema-gra').textContent = format(times.sofZmanShmaGRA || times.sofZmanShma);
-                document.getElementById('shema-mga').textContent = format(times.sofZmanShmaMGA);
-                document.getElementById('chatzot').textContent = format(times.chatzot);
-                document.getElementById('mincha-gedola').textContent = format(times.minchaGedola);
-                document.getElementById('plag').textContent = format(times.plagHaMincha);
-                document.getElementById('sunset').textContent = format(times.sunset);
-                document.getElementById('tzeit').textContent = format(times.tzais72min || times.tzais);
+                // Fill zmanim
+                document.getElementById('netz').textContent = format(zman.SunriseDefault);
+                document.getElementById('shema-gra').textContent = format(zman.ShemaGra);
+                document.getElementById('shema-mga').textContent = format(zman.ShemaMGA);
+                document.getElementById('chatzot').textContent = format(zman.Chatzot);
+                document.getElementById('mincha-gedola').textContent = format(zman.MinchaGedola);
+                document.getElementById('plag').textContent = format(zman.PlagHamincha);
+                document.getElementById('sunset').textContent = format(zman.SunsetDefault);
+                document.getElementById('tzeit').textContent = format(zman.Tzais72min);
 
-                // Variable davening times
-                const plag = times.plagHaMincha ? new Date(times.plagHaMincha) : null;
-                if (plag) {
-                    plag.setMinutes(plag.getMinutes() - 15);
-                    document.getElementById('mincha-time').textContent = format(plag.toISOString());
+                // Variable davening example
+                const minchaMaariv = zman.PlagHamincha;
+                if (minchaMaariv) {
+                    document.getElementById('mincha-maariv').textContent = minchaMaariv;
                 }
 
-                const sunset = times.sunset ? new Date(times.sunset) : null;
+                // Variable shiur example
+                const sunset = zman.SunsetDefault;
                 if (sunset) {
-                    sunset.setMinutes(sunset.getMinutes() + 20);
-                    document.getElementById('maariv-time').textContent = format(sunset.toISOString());
-                }
-
-                if (sunset) {
-                    const halacha = new Date(sunset);
-                    halacha.setMinutes(halacha.getMinutes() + 30);
-                    document.getElementById('halacha-time').textContent = format(halacha.toISOString());
+                    const [timeStr, period] = sunset.split(' ');
+                    let [h, m] = timeStr.split(':');
+                    h = parseInt(h);
+                    if (period === 'PM' && h !== 12) h += 12;
+                    let date = new Date();
+                    date.setHours(h);
+                    date.setMinutes(parseInt(m) + 30);  // Adjust offset
+                    document.getElementById('halacha-time').textContent = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
                 }
             })
-            .catch(err => {
-                console.error(err);
-                document.getElementById('current-date').textContent = 'שגיאה בטעינה';
+            .catch(error => {
+                console.error('MyZmanim API error:', error);
+                document.getElementById('current-date').textContent = 'שגיאה בטעינה - בדוק מפתח API';
             });
-    </script>
-</body>
-</html>
     </script>
 </body>
 </html>
