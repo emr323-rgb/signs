@@ -5,46 +5,186 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>זמנים - בית הכנסת לייקווד</title>
     <style>
-        /* (Keep your full existing <style> block here – same as before) */
-        /* Paste the style from your last working version */
+        /* Paste your full existing <style> block here – same as the last working version */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: url('https://raw.githubusercontent.com/emr323-rgb/signs/main/IMG-20220822-WA0002.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
+            color: #e0e0ff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background-color: rgba(0, 30, 60, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            padding: 20px 60px;
+            display: inline-block;
+            width: fit-content;
+            max-width: 95%;
+        }
+
+        h1 {
+            font-size: 60px;
+            margin: 15px 0;
+            color: #ffffff;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .zmanim-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 95%;
+            max-width: 1400px;
+        }
+
+        .section {
+            background-color: rgba(0, 20, 50, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 40px;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+
+        .time-item {
+            font-size: 30px;
+            margin: 15px 0;
+            color: #ffffff;
+        }
+
+        .time-value {
+            font-weight: bold;
+            color: #e0e0ff;
+        }
+
+        .footer-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: rgba(0, 30, 60, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            padding: 15px 40px;
+            display: inline-block;
+            width: fit-content;
+            font-size: 20px;
+            color: #e0e0ff;
+            max-width: 90%;
+        }
+
+        @media (max-height: 1080px) {
+            h1 { font-size: 50px; }
+            h2 { font-size: 35px; }
+            .time-item { font-size: 26px; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- (Keep your full existing body HTML structure – header, grid, sections, IDs) -->
-    <!-- Paste the body from your last version -->
+    <div class="header-wrapper">
+        <div class="header">
+            <h1>זמנים יומיים</h1>
+            <h1>לייקווד, ניו ג'רזי</h1>
+            <h1 id="current-date">טוען...</h1>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="zmanim-grid">
+            <div class="section">
+                <h2>זמני היום</h2>
+                <div class="time-item">נטץ החמה: <span class="time-value" id="netz">טוען...</span></div>
+                <div class="time-item">סוף זמן ק״ש (גר״א): <span class="time-value" id="shema-gra">טוען...</span></div>
+                <div class="time-item">סוף זמן ק״ש (מג״א): <span class="time-value" id="shema-mga">טוען...</span></div>
+                <div class="time-item">חצות היום: <span class="time-value" id="chatzot">טוען...</span></div>
+                <div class="time-item">מנחה גדולה: <span class="time-value" id="mincha-gedola">טוען...</span></div>
+                <div class="time-item">פלג המנחה: <span class="time-value" id="plag">טוען...</span></div>
+                <div class="time-item">שקיעת החמה: <span class="time-value" id="sunset">טוען...</span></div>
+                <div class="time-item">צאת הכוכבים (72 דק'): <span class="time-value" id="tzeit">טוען...</span></div>
+            </div>
+
+            <div class="section">
+                <h2>זמני תפילה</h2>
+                <div class="time-item">שחרית (קבוע): 7:00 AM</div>
+                <div class="time-item">מנחה: <span class="time-value" id="mincha-time">טוען...</span></div>
+                <div class="time-item">מעריב: <span class="time-value" id="maariv-time">טוען...</span></div>
+                <div class="time-item">מנחה שנייה (קבוע): 4:00 PM</div>
+                <div class="time-item">מעריב שני (קבוע): 9:00 PM</div>
+            </div>
+
+            <div class="section">
+                <h2>זמני שיעורים</h2>
+                <div class="time-item">שיעור גמרא (קבוע): 8:00 PM</div>
+                <div class="time-item">שיעור הלכה: <span class="time-value" id="halacha-time">טוען...</span></div>
+                <div class="time-item">שיעור פרשת שבוע (קבוע): שבת 4:00 PM</div>
+                <div class="time-item">שיעור לנשים (קבוע): יום שלישי 7:30 PM</div>
+                <div class="time-item">שיעור לילדים (קבוע): שבת 10:00 AM</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-wrapper">
+        <footer>לפרטים נוספים – פנו לגבאי</footer>
+    </div>
 
     <script>
-        // MyZmanim API settings
-        const API_KEY = 84318fa94defdf4b3ee66cd222a3c256f0d486ec7d4abbd2cf23013e423bd616b32ea38d9b4ca1e8;  // ← Replace with your actual key
-        const API_USER = 0010457947;  // ← Replace with your user (from MyZmanim account)
-        const LOCATION_ID = 'US33487';  // Lakewood NJ location ID (standard for MyZmanim)
+        // Replace these with your actual MyZmanim credentials
+        const API_KEY = ': 0010457947';  // ← Put your new key here
+        const API_USER = '84318fa94defdf4b3ee66cd222a3c256f0d486ec7d4abbd2cf23013e423bd616b32ea38d9b4ca1e8';   // ← Put your user here
+        const LOCATION_ID = 'US33487';           // Lakewood NJ (standard MyZmanim ID)
 
-        // Today's date in YYYY-MM-DD
         const today = new Date().toISOString().split('T')[0];
 
-        // Build the API URL
         const url = `https://api.myzmanim.com/engine1.json.aspx?coding=JS&language=en&locationid=${LOCATION_ID}&inputdate=${today}&key=${API_KEY}&user=${API_USER}`;
 
         fetch(url)
             .then(response => {
-                if (!response.ok) throw new Error('API error');
+                if (!response.ok) throw new Error('API authentication error - check key/user');
                 return response.json();
             })
             .then(data => {
                 const zman = data.Zman || {};
                 const time = data.Time || {};
 
-                // Hebrew date
                 document.getElementById('current-date').textContent = time.WeekdayHebrew || new Date().toLocaleDateString('he-IL');
 
-                // Format time helper
                 function format(t) {
                     if (!t) return 'לא זמין';
-                    return t;  // MyZmanim returns formatted HH:MM AM/PM
+                    return t;  // MyZmanim returns HH:MM AM/PM
                 }
 
-                // Fill zmanim (using MyZmanim keys)
                 document.getElementById('netz').textContent = format(zman.SunriseDefault);
                 document.getElementById('shema-gra').textContent = format(zman.ShemaGra);
                 document.getElementById('shema-mga').textContent = format(zman.ShemaMGA);
@@ -52,42 +192,47 @@
                 document.getElementById('mincha-gedola').textContent = format(zman.MinchaGedola);
                 document.getElementById('plag').textContent = format(zman.PlagHamincha);
                 document.getElementById('sunset').textContent = format(zman.SunsetDefault);
-                document.getElementById('tzeit').textContent = format(zman.Tzais72min);  // Or TzaisDefault if preferred
+                document.getElementById('tzeit').textContent = format(zman.Tzais72min);
 
                 // Variable davening (edit offsets)
                 const plagTime = zman.PlagHamincha;
                 if (plagTime) {
-                    const [time, period] = plagTime.split(' ');
-                    let [h, m] = time.split(':');
+                    const [timeStr, period] = plagTime.split(' ');
+                    let [h, m] = timeStr.split(':');
+                    h = parseInt(h);
+                    if (period === 'PM' && h !== 12) h += 12;
                     let date = new Date();
-                    date.setHours(period === 'PM' && h !== '12' ? parseInt(h) + 12 : h);
+                    date.setHours(h);
                     date.setMinutes(parseInt(m) - 15);
                     document.getElementById('mincha-time').textContent = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
                 }
 
                 const sunsetTime = zman.SunsetDefault;
                 if (sunsetTime) {
-                    const [time, period] = sunsetTime.split(' ');
-                    let [h, m] = time.split(':');
+                    const [timeStr, period] = sunsetTime.split(' ');
+                    let [h, m] = timeStr.split(':');
+                    h = parseInt(h);
+                    if (period === 'PM' && h !== 12) h += 12;
                     let date = new Date();
-                    date.setHours(period === 'PM' && h !== '12' ? parseInt(h) + 12 : h);
+                    date.setHours(h);
                     date.setMinutes(parseInt(m) + 20);
                     document.getElementById('maariv-time').textContent = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
                 }
 
-                // Variable shiur
                 if (sunsetTime) {
-                    const [time, period] = sunsetTime.split(' ');
-                    let [h, m] = time.split(':');
+                    const [timeStr, period] = sunsetTime.split(' ');
+                    let [h, m] = timeStr.split(':');
+                    h = parseInt(h);
+                    if (period === 'PM' && h !== 12) h += 12;
                     let date = new Date();
-                    date.setHours(period === 'PM' && h !== '12' ? parseInt(h) + 12 : h);
+                    date.setHours(h);
                     date.setMinutes(parseInt(m) + 50);  // Adjust offset
                     document.getElementById('halacha-time').textContent = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('current-date').textContent = 'שגיאה בטעינה';
+                console.error('MyZmanim API error:', error);
+                document.getElementById('current-date').textContent = 'שגיאה בטעינה - בדוק מפתח API';
             });
     </script>
 </body>
