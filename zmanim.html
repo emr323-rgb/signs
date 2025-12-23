@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>זמנים - בית הכנסת לייקווד</title>
     <style>
-        /* Paste your full existing <style> block here – same as the last working version */
         html, body {
             height: 100%;
             margin: 0;
@@ -160,10 +159,10 @@
     </div>
 
     <script>
-        // Replace these with your actual MyZmanim credentials
-        const API_KEY = '0010457947';  // ← Put your new key here
-        const API_USER = '84318fa94defdf4b3ee66cd222a3c256f0d486ec7d4abbd2cf23013e423bd616b32ea38d9b4ca1e8';   // ← Put your user here
-        const LOCATION_ID = 'US33487';           // Lakewood NJ (standard MyZmanim ID)
+        // Your MyZmanim credentials
+        const API_KEY = '84318fa94defdf4b3ee66cd222a3c256f0d486ec7d4abbd2cf23013e423bd616b32ea38d9b4ca1e8';
+        const API_USER = '0010457947';
+        const LOCATION_ID = '69581767';  // Lakewood NJ (confirmed from MyZmanim pages)
 
         const today = new Date().toISOString().split('T')[0];
 
@@ -171,7 +170,7 @@
 
         fetch(url)
             .then(response => {
-                if (!response.ok) throw new Error('API authentication error - check key/user');
+                if (!response.ok) throw new Error('API authentication or network error');
                 return response.json();
             })
             .then(data => {
@@ -182,19 +181,19 @@
 
                 function format(t) {
                     if (!t) return 'לא זמין';
-                    return t;  // MyZmanim returns HH:MM AM/PM
+                    return t;  // MyZmanim returns "7:16 AM" format
                 }
 
-                document.getElementById('netz').textContent = format(zman.SunriseDefault);
+                document.getElementById('netz').textContent = format(zman.SunriseDefault || zman.Sunrise);
                 document.getElementById('shema-gra').textContent = format(zman.ShemaGra);
                 document.getElementById('shema-mga').textContent = format(zman.ShemaMGA);
                 document.getElementById('chatzot').textContent = format(zman.Chatzot);
                 document.getElementById('mincha-gedola').textContent = format(zman.MinchaGedola);
                 document.getElementById('plag').textContent = format(zman.PlagHamincha);
-                document.getElementById('sunset').textContent = format(zman.SunsetDefault);
-                document.getElementById('tzeit').textContent = format(zman.Tzais72min);
+                document.getElementById('sunset').textContent = format(zman.SunsetDefault || zman.Sunset);
+                document.getElementById('tzeit').textContent = format(zman.Tzais72min || zman.Tzais);
 
-                // Variable davening (edit offsets)
+                // Variable davening
                 const plagTime = zman.PlagHamincha;
                 if (plagTime) {
                     const [timeStr, period] = plagTime.split(' ');
@@ -207,7 +206,7 @@
                     document.getElementById('mincha-time').textContent = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
                 }
 
-                const sunsetTime = zman.SunsetDefault;
+                const sunsetTime = zman.SunsetDefault || zman.Sunset;
                 if (sunsetTime) {
                     const [timeStr, period] = sunsetTime.split(' ');
                     let [h, m] = timeStr.split(':');
@@ -231,8 +230,8 @@
                 }
             })
             .catch(error => {
-                console.error('MyZmanim API error:', error);
-                document.getElementById('current-date').textContent = 'שגיאה בטעינה - בדוק מפתח API';
+                console.error('MyZmanim error:', error);
+                document.getElementById('current-date').textContent = 'שגיאה - בדוק חיבור/מפתח';
             });
     </script>
 </body>
