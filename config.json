@@ -1,0 +1,121 @@
+{
+  "shul": {
+    "name": "Your Shul Name",
+    "locationLabel": "Lakewood, NJ",
+    "zip": "08701",
+    "tzid": "America/New_York"
+  },
+  "display": {
+    "refreshMinutes": 10,
+    "showHebrewDate": false,
+    "timeFormat": "12h"
+  },
+  "zmanim": {
+    "items": [
+      {
+        "key": "sunrise",
+        "label": "Netz"
+      },
+      {
+        "key": "sofZmanShmaMGA",
+        "label": "Sof Zman K\"S (MGA)"
+      },
+      {
+        "key": "sofZmanShma",
+        "label": "Sof Zman K\"S (Gra)"
+      },
+      {
+        "key": "chatzot",
+        "label": "Chatzos"
+      },
+      {
+        "key": "minchaGedola",
+        "label": "Mincha Gedola"
+      },
+      {
+        "key": "plagHaMincha",
+        "label": "Plag"
+      },
+      {
+        "key": "sunset",
+        "label": "Shkiah"
+      },
+      {
+        "key": "tzeit42min",
+        "label": "Tzeit (42)"
+      }
+    ]
+  },
+  "rules": {
+    "weeklyEarliestShkiah": {
+      "enabled": true,
+      "daysToInclude": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "weekStartsOn": 0,
+      "offsetMin": -15
+    }
+  },
+  "davening": {
+    "shacharis": [
+      {
+        "label": "Minyan 1",
+        "type": "fixed",
+        "time": "06:15"
+      },
+      {
+        "label": "Minyan 2",
+        "type": "fixed",
+        "time": "07:00"
+      },
+      {
+        "label": "Minyan 3",
+        "type": "fixed",
+        "time": "08:00"
+      }
+    ],
+    "mincha": [
+      {
+        "label": "Minyan 1",
+        "type": "zmanimOffset",
+        "base": "minchaGedola",
+        "offsetMin": 30
+      },
+      {
+        "label": "Minyan 2",
+        "type": "weeklyEarliestShkiahMinus15"
+      },
+      {
+        "label": "Minyan 3",
+        "type": "zmanimOffset",
+        "base": "sunset",
+        "offsetMin": -10
+      }
+    ],
+    "maariv": [
+      {
+        "label": "Minyan 1",
+        "type": "zmanimOffset",
+        "base": "tzeit42min",
+        "offsetMin": 0
+      },
+      {
+        "label": "Minyan 2",
+        "type": "weeklyEarliestShkiahMinus15"
+      },
+      {
+        "label": "Minyan 3",
+        "type": "fixed",
+        "time": "21:30"
+      }
+    ]
+  },
+  "footer": {
+    "dataCredit": "Zmanim data: Hebcal.com",
+    "showLastUpdated": true
+  }
+}
