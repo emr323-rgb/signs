@@ -116,15 +116,13 @@
         "baseField": "MinchaStrict",
         "fixedTime": "13:45",
         "offsetMin": 0,
-        "weekProfile": "sunThu" "label": 
+        "weekProfile": "sunThu"  
       },
-     "מנחה / מעריב",
+        "label": "מנחה / מעריב",
         "type": "weeklyEarliestZman",
         "baseField": "SunsetDefault",
         "offsetMin": -15,
         "weekProfile": "sunThu"
-      {
-       
       }
     ],
     "maariv": [
