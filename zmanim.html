@@ -6,134 +6,76 @@
     <title>זמנים - בית הכנסת לייקווד</title>
     <script src="https://unpkg.com/kosher-zmanim@0.6.0/dist/kosher-zmanim.min.js"></script>
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            background: url('https://raw.githubusercontent.com/emr323-rgb/signs/main/IMG-20220822-WA0002.jpg') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
-            color: #e0e0ff;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header-wrapper {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            background-color: rgba(0, 30, 60, 0.45);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 15px;
-            padding: 20px 60px;
-            display: inline-block;
-            width: fit-content;
-            max-width: 95%;
-        }
-
-        h1 {
-            font-size: 60px;
-            margin: 15px 0;
-            color: #ffffff;
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .zmanim-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            width: 95%;
-            max-width: 1400px;
-        }
-
-        .section {
-            background-color: rgba(0, 20, 50, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 40px;
-            color: #ffd700;
-            margin-bottom: 20px;
-        }
-
-        .time-item {
-            font-size: 30px;
-            margin: 15px 0;
-            color: #ffffff;
-        }
-
-        .time-value {
-            font-weight: bold;
-            color: #e0e0ff;
-        }
-
-        .footer-wrapper {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        footer {
-            text-align: center;
-            background-color: rgba(0, 30, 60, 0.45);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 15px;
-            padding: 15px 40px;
-            display: inline-block;
-            width: fit-content;
-            font-size: 20px;
-            color: #e0e0ff;
-            max-width: 90%;
-        }
-
-        @media (max-height: 1080px) {
-            h1 { font-size: 50px; }
-            h2 { font-size: 35px; }
-            .time-item { font-size: 26px; }
-        }
+        /* (Your existing styles – keep them exactly as in the previous version) */
+        /* Paste your full <style> block here from the last working version */
     </style>
 </head>
 <body>
+    <!-- (Your existing HTML structure – header, grid, sections, IDs) -->
+    <!-- Paste your full body content here -->
 
-    <div class="header-wrapper">
-        <div class="header">
-            <h1>זמנים יומיים</h1>
-            <h1>לייקווד, ניו ג'רזי</h1>
-            <h1 id="current-date">טוען...</h1>
-        </div>
-    </div>
+    <script>
+        const options = {
+            date: new Date(),
+            timeZoneId: "America/New_York",
+            latitude: 40.096,
+            longitude: -74.222,
+            elevation: 15,
+            complexZmanim: true
+        };
 
-    <div class="main-content">
-        <div class="zmanim-grid">
-            <div class="section">
-                <h2>זמני היום</h2>
-                <div class="time-item">נטץ החמה: <span class="time-value" id="netz">טוען...</span></div>
-                <div class="time-item">סוף זמן ק״ש (גר״א): <span class="time-value" id="shema-gra">טוען...</span></div>
-                <div class="time-item">סוף זמן ק״ש (מג״א): <span class="time-value" id="shema-mga">טוען...</span></div>
-                <div class="time-item">חצות היום: <span class="time-value" id="chatzot">טוען...</span></div>
-                <div class="time-item">מנחה גדולה: <span class="time-value" id="mincha-gedola">טוען...</span></div>
-                <div class="time-item">פלג המנחה: <span class="time-value" id="plag">טוען...</span></div>
-                <div class="time-item">שקיעת החמה: <span class="time-value" id="sunset">טוען...</span></div>
-                <div class="time-item">צאת הכוכבים (72 דק'): <span class="time-value" id="tzeit">טוען...</span></div>
-            </div>
+        const zmanim = KosherZmanim.getZmanimJson(options);
 
-            <div class="section">
-                <h2>זמני
+        // Hebrew date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        // Format helper
+        function format(timeString) {
+            if (!timeString) return 'לא זמין';
+            const [hour, minute] = timeString.split(':');
+            const date = new Date();
+            date.setHours(hour);
+            date.setMinutes(minute);
+            return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        }
+
+        // Fill zmanim
+        document.getElementById('netz').textContent = format(zmanim.times.sunrise);
+        document.getElementById('shema-gra').textContent = format(zmanim.times.sofZmanShmaGRA);
+        document.getElementById('shema-mga').textContent = format(zmanim.times.sofZmanShmaMGA);
+        document.getElementById('chatzot').textContent = format(zmanim.times.chatzot);
+        document.getElementById('mincha-gedola').textContent = format(zmanim.times.minchaGedola);
+        document.getElementById('plag').textContent = format(zmanim.times.plagHaMincha);
+        document.getElementById('sunset').textContent = format(zmanim.times.sunset);
+        document.getElementById('tzeit').textContent = format(zmanim.times.tzais72);  // 72 min tzeit
+
+        // Variable davening (edit offsets)
+        const plagTime = zmanim.times.plagHaMincha;
+        if (plagTime) {
+            const [h, m] = plagTime.split(':');
+            let date = new Date();
+            date.setHours(h);
+            date.setMinutes(m - 15);
+            document.getElementById('mincha-time').textContent = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        }
+
+        const sunsetTime = zmanim.times.sunset;
+        if (sunsetTime) {
+            const [h, m] = sunsetTime.split(':');
+            let date = new Date();
+            date.setHours(h);
+            date.setMinutes(m + 20);
+            document.getElementById('maariv-time').textContent = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        }
+
+        // Variable shiur
+        if (sunsetTime) {
+            const [h, m] = sunsetTime.split(':');
+            let date = new Date();
+            date.setHours(h);
+            date.setMinutes(m + 50);  // Adjust as needed
+            document.getElementById('halacha-time').textContent = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        }
+    </script>
+</body>
+</html>
