@@ -1,6 +1,6 @@
 {
   "shul": {
-    "name": "Your Shul Name",
+    "name": "Bais Medrash of Albert",
     "locationLabel": "Lakewood, NJ"
   },
   "myzmanim": {
@@ -71,22 +71,22 @@
   "davening": {
     "shacharis": [
       {
-        "label": "Minyan 1",
+        "label": "שחרית  1",
         "type": "fixed",
         "time": "06:45"
       },
       {
-        "label": "Minyan 2",
+        "label": "שחרית  2",
         "type": "fixed",
         "time": "07:00"
       },
       {
-        "label": "Minyan 3",
+        "label": "שחרית  3",
         "type": "fixed",
         "time": "08:00"
       },
       {
-        "label": "Minyan 4 (Sunday only)",
+        "label": "שחרית  4 (Sunday only)",
         "type": "fixedIfDow",
         "dow": [
           0
@@ -96,42 +96,39 @@
     ],
     "mincha": [
       {
-        "label": "Mincha (earliest)",
+        "label": מנחה (earliest)",
         "type": "weeklyLatestZmanOrFixed",
         "baseField": "MinchaStrict",
         "fixedTime": "13:45",
         "offsetMin": 0
       },
       {
-        "label": "Mincha / Maariv",
+        "label": "מנחה / מעריב",
         "type": "weeklyEarliestZman",
         "baseField": "SunsetDefault",
         "offsetMin": -15
       },
       {
-        "label": "Mincha 3",
-        "type": "manualNote",
-        "note": "Edit config.json to add/adjust a third Mincha time"
-      }
+      
     ],
     "maariv": [
       {
-        "label": "Minyan 1",
+        "label": "מעריב 1",
         "type": "fixed",
         "time": "18:05"
       },
       {
-        "label": "Minyan 2",
+        "label": "מעריב 2",
         "type": "fixed",
         "time": "19:15"
       },
       {
-        "label": "Minyan 3",
+        "label": "מעריב 3",
         "type": "fixed",
         "time": "21:30"
       },
       {
-        "label": "Minyan 4",
+        "label": "מעריב 4",
         "type": "fixed",
         "time": "22:15"
       }
