@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>זמנים - בית הכנסת</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: url('https://raw.githubusercontent.com/emr323-rgb/signs/main/IMG-20220822-WA0002.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
+            color: #e0e0ff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background-color: rgba(0, 30, 60, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            padding: 20px 60px;
+            display: inline-block;
+            width: fit-content;
+            max-width: 95%;
+        }
+
+        h1 {
+            font-size: 60px;
+            margin: 15px 0;
+            color: #ffffff;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .zmanim-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 95%;
+            max-width: 1400px;
+        }
+
+        .section {
+            background-color: rgba(0, 20, 50, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 40px;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+
+        .time-item {
+            font-size: 30px;
+            margin: 15px 0;
+            color: #ffffff;
+        }
+
+        .time-value {
+            font-weight: bold;
+            color: #e0e0ff;
+        }
+
+        .footer-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: rgba(0, 30, 60, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            padding: 15px 40px;
+            display: inline-block;
+            width: fit-content;
+            font-size: 20px;
+            color: #e0e0ff;
+            max-width: 90%;
+        }
+
+        /* Auto-scale for fit */
+        @media (max-height: 1080px) {
+            h1 { font-size: 50px; }
+            h2 { font-size: 35px; }
+            .time-item { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-wrapper">
+        <div class="header">
+            <h1>זמנים יומיים</h1>
+            <h1>לייקווד, ניו ג'רזי</h1>
+            <h1 id="current-date"></h1>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="zmanim-grid">
+            <div class="section" id="zmanim-section">
+                <h2>זמני היום</h2>
+                <div class="time-item">נטץ: <span class="time-value" id="netz"></span></div>
+                <div class="time-item">סוף זמן ק"ש (גר"א): <span class="time-value" id="sof-shema-gra"></span></div>
+                <div class="time-item">סוף זמן ק"ש (מג"א): <span class="time-value" id="sof-shema-mga"></span></div>
+                <div class="time-item">חצות: <span class="time-value" id="chatzot"></span></div>
+                <div class="time-item">מנחה גדולה: <span class="time-value" id="mincha-gedola"></span></div>
+                <div class="time-item">פלג המנחה: <span class="time-value" id="plag"></span></div>
+                <div class="time-item">שקיעה: <span class="time-value" id="sunset"></span></div>
+                <div class="time-item">צאת הכוכבים: <span class="time-value" id="tzeit"></span></div>
+            </div>
+
+            <div class="section" id="davening-section">
+                <h2>זמני תפילה</h2>
+                <div class="time-item">שחרית (קבוע): 7:00 AM</div>
+                <div class="time-item">מנחה: <span class="time-value" id="mincha-time"></span> (פלג - 15 דק')</div>
+                <div class="time-item">מעריב: <span class="time-value" id="maariv-time"></span> (שקיעה + 20 דק')</div>
+                <div class="time-item">מנחה שנייה (קבוע): 4:00 PM</div>
+                <div class="time-item">מעריב שני (קבוע): 9:00 PM</div>
+            </div>
+
+            <div class="section" id="shiur-section">
+                <h2>זמני שיעורים</h2>
+                <div class="time-item">שיעור גמרא (קבוע): 8:00 PM</div>
+                <div class="time-item">שיעור הלכה: <span class="time-value" id="halacha-time"></span> (מעריב + 30 דק')</div>
+                <div class="time-item">שיעור פרשת שבוע (קבוע): שבת 4:00 PM</div>
+                <div class="time-item">שיעור לנשים (קבוע): יום שלישי 7:30 PM</div>
+                <div class="time-item">שיעור לילדים (קבוע): שבת 10:00 AM</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-wrapper">
+        <footer>לפרטים נוספים – פנו לגבאי</footer>
+    </div>
+
+    <script>
+        // Fetch zmanim from Hebcal API for Lakewood NJ
+        const geonameid = '5100280';  // Lakewood NJ
+        const today = new Date().toISOString().split('T')[0];  // YYYY-MM-DD
+        const url = `https://www.hebcal.com/zmanim?cfg=json&geonameid=${geonameid}&date=${today}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const times = data.times;
+
+                // Display date
+                document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL');
+
+                // Zmanim section
+                document.getElementById('netz').textContent = formatTime(times.sunrise);
+                document.getElementById('sof-shema-gra').textContent = formatTime(times.sofZmanShmaGRA);
+                document.getElementById('sof-shema-mga').textContent = formatTime(times.sofZmanShmaMGA);
+                document.getElementById('chatzot').textContent = formatTime(times.chatzot);
+                document.getElementById('mincha-gedola').textContent = formatTime(times.minchaGedola);
+                document.getElementById('plag').textContent = formatTime(times.plagHaMincha);
+                document.getElementById('sunset').textContent = formatTime(times.sunset);
+                document.getElementById('tzeit').textContent = formatTime(times.tzeit);
+
+                // Davening (variable examples - edit formulas)
+                const minchaTime = subtractMinutes(times.plagHaMincha, 15);
+                document.getElementById('mincha-time').textContent = formatTime(minchaTime);
+
+                const maarivTime = addMinutes(times.sunset, 20);
+                document.getElementById('maariv-time').textContent = formatTime(maarivTime);
+
+                // Shiur (variable example)
+                const halachaTime = addMinutes(maarivTime, 30);
+                document.getElementById('halacha-time').textContent = formatTime(halachaTime);
+            })
+            .catch(error => console.error('Error fetching zmanim:', error));
+
+        // Helper to format ISO time to HH:MM AM/PM (edit for 24hr if preferred)
+        function formatTime(isoString) {
+            const date = new Date(isoString);
+            return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        }
+
+        // Subtract minutes from ISO time
+        function subtractMinutes(isoString, minutes) {
+            const date = new Date(isoString);
+            date.setMinutes(date.getMinutes() - minutes);
+            return date.toISOString();
+        }
+
+        // Add minutes to ISO time
+        function addMinutes(isoString, minutes) {
+            const date = new Date(isoString);
+            date.setMinutes(date.getMinutes() + minutes);
+            return date.toISOString();
+        }
+    </script>
+</body>
+</html>
