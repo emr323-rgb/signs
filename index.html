@@ -17,12 +17,14 @@
         }
         .header {
    text-align: center;
-    background-color: rgba(0, 30, 60, 0.45);   /* Lighter – was 0.65, now 0.45 */
+    background-color: rgba(0, 30, 60, 0.45);   /* Same tint as before */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 15px;
-    padding: 20px;
-    margin: 20px;
+    padding: 20px 40px;        /* Vertical 20px, horizontal 40px – keeps it snug */
+    margin: 20px auto;         /* Centers it and removes huge side space */
+    display: inline-block;     /* ← This makes the box only as wide as the text needs */
+    max-width: 90%;
 }
         }
         h1 {
@@ -82,9 +84,17 @@
         }
         footer {
             text-align: center;
-            padding: 15px;
-            font-size: 20px;
-            color: #aaaaaa;
+    background-color: rgba(0, 30, 60, 0.45);   /* Matches header tint */
+    backdrop-filter: blur(12px);              /* Same frosted blur */
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 15px 30px;        /* Comfortable padding */
+    margin: 20px auto;         /* Centers it and adds space above */
+    display: inline-block;     /* Makes the box only as wide as the text */
+    font-size: 20px;
+    color: #e0e0ff;            /* Matches your light blue text */
+    max-width: 90%;            /* Keeps it from stretching too wide */
+}
         }
         /* Responsive adjustments */
         @media (max-width: 1600px) {
@@ -203,6 +213,7 @@
     <footer>For Dedications, Please Contact Binyomin Steinfeld</footer>
 </body>
 </html>
+
 
 
 
