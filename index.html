@@ -13,20 +13,26 @@
             background-size: cover;
             overflow: hidden;
             font-family: 'David', 'SBL Hebrew', Arial, sans-serif;
-            color: #e0e0ff;                  /* Light blue text */
+            color: #e0e0ff;
+        }
+
+        /* Centering wrapper for header */
+        .header-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
         }
 
         .header {
             text-align: center;
-    background-color: rgba(0, 30, 60, 0.45);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 15px;
-    padding: 20px 50px;        /* Adjust horizontal padding for snug fit */
-    margin: 20px auto;         /* Centers it vertically and horizontally */
-    display: inline-block;     /* ← Key line: makes box width fit the text */
-    width: fit-content;        /* ← Extra insurance for perfect snug fit */
-    max-width: 95%;
+            background-color: rgba(0, 30, 60, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            padding: 20px 50px;
+            display: inline-block;
+            width: fit-content;
+            max-width: 95%;
         }
 
         h1 {
@@ -39,20 +45,18 @@
             grid-template-columns: repeat(5, 1fr);
             gap: 20px;
             padding: 0 20px 20px 20px;
-            max-height: 80vh;
-            overflow: hidden;
-            align-content: start;            /* Makes columns fit content height */
+            align-content: start;
         }
 
         .book-column {
-            background-color: rgba(0, 20, 50, 0.35);   /* Light dark tint */
-            backdrop-filter: blur(10px);              /* Frosted glass blur */
-            -webkit-backdrop-filter: blur(10px);
-            border: none;                             /* No outer border */
+            background-color: rgba(0, 20, 50, 0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: none;
             border-radius: 12px;
             padding: 15px;
             overflow-y: auto;
-            align-self: start;                        /* Column height fits content */
+            align-self: start;
         }
 
         h2 {
@@ -73,7 +77,7 @@
 
         th, td {
             padding: 8px;
-            border: none;                /* No grid lines at all */
+            border: none;
         }
 
         th {
@@ -86,32 +90,33 @@
         }
 
         td.donor {
-            color: #ffffff;              /* Pure white for donor names – easier to read */
+            color: #ffffff;
             font-style: italic;
             text-align: right;
         }
 
-        footer {
-          .footer-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-footer {
-    text-align: center;
-    background-color: rgba(0, 30, 60, 0.45);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 15px;
-    padding: 15px 40px;        /* Adjust horizontal padding to fit text snugly */
-    font-size: 20px;
-    color: #e0e0ff;
-    max-width: 90%;
+        /* Centering wrapper for footer */
+        .footer-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
         }
 
-        /* Responsive adjustments */
+        footer {
+            text-align: center;
+            background-color: rgba(0, 30, 60, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            padding: 15px 40px;
+            display: inline-block;
+            width: fit-content;
+            font-size: 20px;
+            color: #e0e0ff;
+            max-width: 90%;
+        }
+
+        /* Responsive */
         @media (max-width: 1600px) {
             .books-grid { grid-template-columns: repeat(3, 1fr); }
             h1 { font-size: 42px; }
@@ -128,8 +133,9 @@ footer {
     </style>
 </head>
 <body>
-    <div style="display: flex; justify-content: center;">
-    <div class="header">
+
+    <div class="header-wrapper">
+        <div class="header">
         <h1> נר למאור תשפ״ו</h1>
          <h1>מי שברך אבותינו...ומי שנותנים נר למאור</h1>
     </div>
@@ -223,9 +229,14 @@ footer {
                 <tr><td class="parsha">וילך</td><td class="donor">Available</td></tr>
                 <tr><td class="parsha">האזינו</td><td class="donor">Available</td></tr>
             </table>
-        </div>
-        <div class="footer-wrapper">
-    <footer>For Dedications, Please Contact Binyomin Steinfeld</footer>
+       </div>
+
+    </div>
+
+    <div class="footer-wrapper">
+        <footer>לפרטים על חסות נר למאור – פנו לגבאי</footer>
+    </div>
+
 </body>
 </html>
 
